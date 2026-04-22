@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Freepik Automation — Generate Freepik videos in bulk on autopilot</title>
+  <meta name="description" content="A Chrome extension that queues hundreds of Freepik video prompts and generates them for you in the background. Stop babysitting the generate button." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Freepik Automation — Generate Freepik videos in bulk" />
+  <meta property="og:description" content="A Chrome extension that queues hundreds of Freepik video prompts and generates them for you in the background." />
+  <meta property="og:image" content="../apple-touch-icon.png" />
+  <meta property="og:type" content="product" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Freepik Automation — Generate Freepik videos in bulk" />
+  <meta name="twitter:description" content="Queue hundreds of Freepik video prompts and generate them in the background." />
+  <meta name="twitter:image" content="../apple-touch-icon.png" />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Geist+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Shared theme -->
+  <link rel="stylesheet" href="../style.css" />
+
+  <!-- Page-specific styles (only what's not already in the main theme) -->
+  <style>
+    /* Compact nav for the product page — logo + single CTA */
+    .pl-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.85);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .pl-nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 16px var(--container-px);
+    }
+    .pl-nav__brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+    }
+    .pl-nav__brand-mark {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      background: var(--accent);
+      display: grid; place-items: center;
+      color: #000;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .pl-nav__links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+    .pl-nav__links a {
+      color: var(--text-secondary);
+      transition: color var(--transition);
+    }
+    .pl-nav__links a:hover { color: var(--text-primary); }
+
+    /* Hero */
+    .pl-hero {
+      padding: 140px 0 80px;
+      text-align: center;
+    }
+    .pl-hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border: 1px solid var(--border-tag);
+      background: var(--bg-tag);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      border-radius: var(--radius-tag);
+      margin-bottom: 24px;
+    }
+    .pl-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5.5vw, 72px);
+      font-weight: 400;
+      line-height: 1.08;
+      margin-bottom: 24px;
+    }
+    .pl-hero__subtitle {
+      max-width: 640px;
+      margin: 0 auto 40px;
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .pl-hero__ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .pl-hero__meta {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .pl-hero__demo {
+      max-width: 1100px;
+      margin: 64px auto 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      background: var(--bg-card);
+      box-shadow: 0 40px 80px -30px rgba(70, 255, 122, 0.12);
+    }
+    .pl-hero__demo img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Problem / how-it-works / features shared card style */
+    .pl-grid {
+      display: grid;
+      gap: 20px;
+    }
+    .pl-grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .pl-grid--2 { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 900px) {
+      .pl-grid--3, .pl-grid--2 { grid-template-columns: 1fr; }
+    }
+
+    .pl-card {
+      padding: 28px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+    }
+    .pl-card__num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .pl-card__title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+    .pl-card__body {
+      color: var(--text-card);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* Pricing */
+    .pl-pricing {
+      display: grid;
+      place-items: center;
+    }
+    .pl-price-card {
+      max-width: 420px;
+      width: 100%;
+      padding: 40px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-tag);
+      border-radius: var(--radius-card);
+      text-align: center;
+    }
+    .pl-price-card__label {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .pl-price-card__amount {
+      font-family: var(--font-display);
+      font-size: 64px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .pl-price-card__amount sup {
+      font-size: 28px;
+      vertical-align: top;
+      margin-right: 6px;
+    }
+    .pl-price-card__period {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .pl-price-card__features {
+      list-style: none;
+      text-align: left;
+      margin: 24px 0 32px;
+    }
+    .pl-price-card__features li {
+      padding: 8px 0;
+      color: var(--text-card);
+      font-size: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .pl-price-card__features li::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .pl-price-card .btn { width: 100%; }
+
+    /* FAQ */
+    .pl-faq {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .pl-faq__item {
+      border-bottom: 1px solid var(--border);
+      padding: 24px 0;
+    }
+    .pl-faq__item:first-child { border-top: 1px solid var(--border); }
+    .pl-faq__q {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+    }
+    .pl-faq__q::-webkit-details-marker { display: none; }
+    .pl-faq__q::after {
+      content: "+";
+      font-family: var(--font-mono);
+      font-size: 24px;
+      color: var(--accent);
+      transition: transform var(--transition);
+    }
+    .pl-faq__item[open] .pl-faq__q::after { content: "−"; }
+    .pl-faq__a {
+      margin-top: 12px;
+      color: var(--text-card);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* Footer */
+    .pl-footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+    .pl-footer__links {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .pl-footer__links a {
+      color: var(--text-secondary);
+      transition: color var(--transition);
+    }
+    .pl-footer__links a:hover { color: var(--accent); }
+    .pl-footer__legal {
+      max-width: 640px;
+      margin: 12px auto 0;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 720px) {
+      :root { --container-px: 24px; }
+      .pl-hero { padding: 110px 0 60px; }
+      .pl-nav__links { display: none; }
+      .pl-nav__links--cta-only { display: flex; gap: 0; }
+      .pl-nav__links--cta-only a:not(.btn) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="pl-nav">
+    <div class="pl-nav__inner">
+      <a href="../" class="pl-nav__brand">
+        <span class="pl-nav__brand-mark">F</span>
+        FREEPIK&nbsp;AUTOMATION
+      </a>
+      <div class="pl-nav__links pl-nav__links--cta-only">
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#pricing" class="btn btn--primary btn--sm">Get it →</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="pl-hero">
+    <div class="container">
+      <span class="pl-hero__badge">Chrome Extension · Built for creators at volume</span>
+      <h1 class="pl-hero__title">Generate 100 Freepik videos<br /><em class="accent">while you sleep.</em></h1>
+      <p class="pl-hero__subtitle">
+        Paste your prompts. Hit start. Walk away. Freepik Automation queues your entire batch and generates them one after another in your own Freepik account — no more babysitting the generate button for hours.
+      </p>
+      <div class="pl-hero__ctas">
+        <a href="#pricing" class="btn btn--primary">Get Freepik Automation →</a>
+        <a href="#how" class="btn btn--ghost">See how it works</a>
+      </div>
+      <p class="pl-hero__meta">One-time payment · Works with your existing Freepik account · 7-day refund</p>
+
+      <div class="pl-hero__demo">
+        <img src="assets/hero-demo.png" alt="Freepik Automation extension running alongside Freepik's video generator — a queue of prompts processing one after another while the user walks away." loading="eager" />
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="section" id="problem">
+    <div class="container">
+      <p class="section__label">// THE PROBLEM</p>
+      <h2 class="section__title">Freepik can generate your video.<br /><em class="accent">It just can't queue the next one.</em></h2>
+      <div class="pl-grid pl-grid--3">
+        <div class="pl-card">
+          <p class="pl-card__num">01</p>
+          <h3 class="pl-card__title">You have 100 ideas.</h3>
+          <p class="pl-card__body">Stock content, social reels, prototype libraries — volume matters. You need to generate a lot, fast.</p>
+        </div>
+        <div class="pl-card">
+          <p class="pl-card__num">02</p>
+          <h3 class="pl-card__title">Freepik generates one at a time.</h3>
+          <p class="pl-card__body">Paste prompt. Click generate. Wait 40 seconds. Download. Repeat. Your workflow is now the bottleneck — not the AI.</p>
+        </div>
+        <div class="pl-card">
+          <p class="pl-card__num">03</p>
+          <h3 class="pl-card__title">Freepik Automation runs the queue for you.</h3>
+          <p class="pl-card__body">One paste. One button. Your whole batch runs in the background while you do anything else.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how">
+    <div class="container">
+      <p class="section__label">// HOW IT WORKS</p>
+      <h2 class="section__title">Three steps. <em class="accent">That's the whole product.</em></h2>
+      <div class="pl-grid pl-grid--3">
+        <div class="pl-card">
+          <p class="pl-card__num">STEP 1</p>
+          <h3 class="pl-card__title">Install &amp; open Freepik.</h3>
+          <p class="pl-card__body">Add the extension to Chrome, log into your Freepik account like normal, and open the video generator page.</p>
+        </div>
+        <div class="pl-card">
+          <p class="pl-card__num">STEP 2</p>
+          <h3 class="pl-card__title">Paste your prompt list.</h3>
+          <p class="pl-card__body">One prompt per line. The extension reads the list and configures each run with your chosen duration, aspect ratio, and style.</p>
+        </div>
+        <div class="pl-card">
+          <p class="pl-card__num">STEP 3</p>
+          <h3 class="pl-card__title">Press start. Walk away.</h3>
+          <p class="pl-card__body">The queue runs in order, waits for each render to finish, and starts the next one — even if you switch tabs. Come back to a finished library.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="container">
+      <p class="section__label">// WHAT'S INSIDE</p>
+      <h2 class="section__title">Built by someone<br /><em class="accent">who got sick of clicking generate.</em></h2>
+      <div class="pl-grid pl-grid--2">
+        <div class="pl-card">
+          <h3 class="pl-card__title">🎬 Bulk prompt queue</h3>
+          <p class="pl-card__body">Paste 10 prompts or 500. The queue handles them in order, one after another, in your own Freepik session.</p>
+        </div>
+        <div class="pl-card">
+          <h3 class="pl-card__title">⚙️ Per-batch settings</h3>
+          <p class="pl-card__body">Lock in duration, aspect ratio, and style once — applied to every generation in the batch automatically.</p>
+        </div>
+        <div class="pl-card">
+          <h3 class="pl-card__title">🛡️ Runs in your own account</h3>
+          <p class="pl-card__body">Uses your existing Freepik login and your own credits. No intermediate server, no password hand-off, nothing leaves your browser.</p>
+        </div>
+        <div class="pl-card">
+          <h3 class="pl-card__title">🔁 Auto-retry on failure</h3>
+          <p class="pl-card__body">If a generation fails (network blip, Freepik timeout), the queue retries it and keeps going instead of dying on you.</p>
+        </div>
+        <div class="pl-card">
+          <h3 class="pl-card__title">📥 Download + organize</h3>
+          <p class="pl-card__body">Optional auto-download per generation, with filenames derived from your prompt so your output folder stays organized.</p>
+        </div>
+        <div class="pl-card">
+          <h3 class="pl-card__title">🔧 Updated as Freepik changes</h3>
+          <p class="pl-card__body">When Freepik updates their UI, the extension gets patched. Lifetime update access included with your purchase.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" id="pricing">
+    <div class="container">
+      <p class="section__label" style="text-align:center;">// PRICING</p>
+      <h2 class="section__title" style="text-align:center;">One price. <em class="accent">No subscriptions.</em></h2>
+
+      <div class="pl-pricing">
+        <div class="pl-price-card">
+          <p class="pl-price-card__label">LIFETIME LICENSE</p>
+          <p class="pl-price-card__amount"><sup>$</sup>29</p>
+          <p class="pl-price-card__period">one-time payment · 1 user</p>
+
+          <ul class="pl-price-card__features">
+            <li>Unlimited batch generations</li>
+            <li>All current features</li>
+            <li>Lifetime updates</li>
+            <li>Email support</li>
+            <li>7-day money-back guarantee</li>
+          </ul>
+
+          <!-- Paddle checkout button — replace href with your real Paddle product link once account is verified -->
+          <a href="#" class="btn btn--primary" id="buy-button" data-paddle-product="REPLACE_WITH_PADDLE_PRODUCT_ID">
+            Get it now →
+          </a>
+          <p class="pl-hero__meta" style="margin-top:16px;">Secure checkout via Paddle · Cards, PayPal, Apple Pay, Google Pay</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <p class="section__label" style="text-align:center;">// FAQ</p>
+      <h2 class="section__title" style="text-align:center;">Questions<br /><em class="accent">people actually ask.</em></h2>
+
+      <div class="pl-faq">
+        <details class="pl-faq__item">
+          <summary class="pl-faq__q">Is Freepik Automation made by Freepik?</summary>
+          <p class="pl-faq__a">No. Freepik Automation is an independent third-party Chrome extension, not affiliated with, endorsed by, or connected to Freepik Company. It's a browser tool that automates actions you'd otherwise do manually on freepik.com using your own account.</p>
+        </details>
+
+        <details class="pl-faq__item">
+          <summary class="pl-faq__q">Do I need a Freepik account?</summary>
+          <p class="pl-faq__a">Yes — you use your own Freepik account and your own credits. The extension doesn't include Freepik access; it just automates how you interact with the site once you're logged in.</p>
+        </details>
+
+        <details class="pl-faq__item">
+          <summary class="pl-faq__q">Is this one-time or a subscription?</summary>
+          <p class="pl-faq__a">One-time payment. $29 gets you a lifetime license for one user, with all future updates included. No subscription, no auto-renewal, no hidden fees.</p>
+        </details>
+
+        <details class="pl-faq__item">
+          <summary class="pl-faq__q">What if Freepik changes their UI and the extension breaks?</summary>
+          <p class="pl-faq__a">When Freepik rolls out meaningful UI changes, the extension gets patched and pushed to the Chrome Web Store. Updates are free for the lifetime of your license.</p>
+        </details>
+
+        <details class="pl-faq__item">
+          <summary class="pl-faq__q">What's the refund policy?</summary>
+          <p class="pl-faq__a">7-day money-back guarantee, no questions asked. If it doesn't work for you, email thapadeepak726@gmail.com within 7 days of purchase and I'll refund via Paddle.</p>
+        </details>
+
+        <details class="pl-faq__item">
+          <summary class="pl-faq__q">Is my Freepik password safe?</summary>
+          <p class="pl-faq__a">The extension never sees, stores, or transmits your Freepik password. It operates inside your already-logged-in browser session, the same way any user action on the page would. No credentials are sent anywhere.</p>
+        </details>
+
+        <details class="pl-faq__item">
+          <summary class="pl-faq__q">What browsers are supported?</summary>
+          <p class="pl-faq__a">Google Chrome and any Chromium-based browser that supports Chrome Web Store extensions (Brave, Edge, Arc, Opera). Firefox and Safari are not currently supported.</p>
+        </details>
+
+        <details class="pl-faq__item">
+          <summary class="pl-faq__q">How do I get support?</summary>
+          <p class="pl-faq__a">Email <a href="mailto:thapadeepak726@gmail.com" style="color:var(--accent);">thapadeepak726@gmail.com</a>. Reply usually within 24 hours on weekdays.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="pl-footer">
+    <div class="container">
+      <div class="pl-footer__links">
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="refund.html">Refund Policy</a>
+        <a href="mailto:thapadeepak726@gmail.com">Contact</a>
+        <a href="../">← Back to deepakthapa.dev</a>
+      </div>
+      <p>© <span id="year"></span> Deepak Thapa · Freepik Automation is an independent Chrome extension and is not affiliated with Freepik Company.</p>
+      <p class="pl-footer__legal">
+        "Freepik" is a trademark of Freepik Company S.L. Freepik Automation is a third-party browser extension designed to automate user actions on freepik.com and is sold independently. Purchases are processed by Paddle.com Market Ltd., our authorized reseller.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
