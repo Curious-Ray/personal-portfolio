@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Deepak Thapa — Portfolio</title>
+  <meta name="description" content="Personal portfolio of Deepak Thapa." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Deepak Thapa — Portfolio" />
+  <meta property="og:description" content="Personal portfolio of Deepak Thapa." />
+  <meta property="og:image" content="apple-touch-icon.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Deepak Thapa — Portfolio" />
+  <meta name="twitter:description" content="Personal portfolio of Deepak Thapa." />
+  <meta name="twitter:image" content="apple-touch-icon.png" />
+  <meta name="theme-color" content="#000000" />
+  <!-- TODO on deploy: add absolute og:url and <link rel="canonical"> with your real domain -->
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Geist+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- CDN fallback: if GSAP fails to load, reveal all animated elements -->
+  <script>
+    setTimeout(function() {
+      if (typeof gsap === 'undefined') {
+        document.documentElement.classList.add('no-gsap');
+      }
+    }, 3000);
+  </script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner container">
+      <a href="#" class="nav__logo">
+        <video class="nav__avatar" src="assets/video/meavatar.mp4" autoplay loop muted playsinline webkit-playsinline preload="metadata" aria-label="Deepak Thapa avatar"></video>
+        DEEPAK THAPA
+      </a>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav__links">
+        <a href="#projects" class="nav__link">Work</a>
+        <a href="#about" class="nav__link">About</a>
+        <a href="#beyond" class="nav__link nav__link--mobile-only">Beyond</a>
+        <a href="#courses" class="nav__link nav__link--mobile-only">Courses</a>
+        <a href="#experience" class="nav__link">Experience</a>
+        <a href="#education" class="nav__link nav__link--mobile-only">Education</a>
+        <a href="#contact" class="nav__link">Contact</a>
+      </div>
+    </div>
+    <div id="scroll-progress"></div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <p class="hero__subtitle">DEVELOPER · 4 YEARS OF EXPERIENCE · AI-NATIVE · KATHMANDU</p>
+      <h1 class="hero__title">
+        <!-- Desktop (2-line animated) -->
+        <span class="hero__line hero__d">I'm Deepak Thapa — a developer</span>
+        <span class="hero__line hero__d">turning ideas into <em class="accent">shipped products.</em></span>
+        <!-- Mobile (3-line, animated) -->
+        <span class="hero__line hero__m">I'm Deepak Thapa —</span>
+        <span class="hero__line hero__m">a developer, <em class="accent">turning ideas</em></span>
+        <span class="hero__line hero__m"><em class="accent">into shipped products.</em></span>
+      </h1>
+      <div class="hero__buttons">
+        <a href="mailto:thapadeepak726@gmail.com" class="btn btn--primary">Let's Talk →</a>
+        <a href="https://github.com/Curious-Ray" target="_blank" rel="noopener" class="btn btn--action">GitHub →</a>
+      </div>
+    </div>
+    <div class="hero__image-wrap container">
+      <div class="hero__image">
+        <video class="hero__img hero__img--desktop" data-src="assets/video/highcats.mp4" autoplay loop muted playsinline webkit-playsinline preload="metadata" aria-label="Hero visual"></video>
+        <video class="hero__img hero__img--mobile" data-src="assets/video/highcats-mobile.mp4" autoplay loop muted playsinline webkit-playsinline preload="metadata" aria-label="Hero visual"></video>
+        <script>
+          (function() {
+            var isMobile = window.innerWidth <= 480;
+            var selector = isMobile ? '.hero__img--mobile' : '.hero__img--desktop';
+            var vid = document.querySelector(selector);
+            if (vid && vid.dataset.src) { vid.src = vid.dataset.src; vid.load(); }
+          })();
+        </script>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <div class="container">
+      <p class="section__label section__label--desktop">// WHAT I'M BUILDING</p>
+      <p class="section__label section__label--mobile">// BUILDING NOW</p>
+      <h2 class="section__title">Currently building. <em class="accent">In active development.</em></h2>
+
+      <div class="projects">
+
+        <!-- Chrome extensions -->
+        <article class="project-card" data-animate>
+          <div class="project-card__tags">
+            <span class="tag">Chrome Extension</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Site Automation</span>
+            <span class="tag">Coming Soon</span>
+          </div>
+          <div class="project-card__info">
+            <div class="project-card__info-left">
+              <div class="project-card__meta">
+                <img src="apple-touch-icon.png" alt="Deepak Thapa" class="project-card__logo" loading="lazy" />
+                <div class="project-card__meta-text">
+                  <h3 class="project-card__name">Site-specific Chrome extensions</h3>
+                  <div class="project-card__meta-sub">
+                    <p class="project-card__category">Browser Automation</p>
+                    <span class="project-card__year">2024 — NOW</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-card__info-right">
+              <p class="project-card__desc">Chrome extensions that automate the prompt-and-generate parts of image and video tools (e.g. Freepik). Spot a workflow that should be smoother, ship a tool that fixes it. In active development.</p>
+            </div>
+          </div>
+          <div class="project-card__footer">
+            <p class="project-card__award">More details coming as I ship.</p>
+            <div class="project-card__links">
+              <a href="https://github.com/Curious-Ray" target="_blank" rel="noopener" class="project-card__link">GitHub →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Personal Finance Tracker -->
+        <article class="project-card" data-animate>
+          <div class="project-card__tags">
+            <span class="tag">Web App</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Personal Finance</span>
+            <span class="tag">Coming Soon</span>
+          </div>
+          <div class="project-card__info">
+            <div class="project-card__info-left">
+              <div class="project-card__meta">
+                <img src="apple-touch-icon.png" alt="Deepak Thapa" class="project-card__logo" loading="lazy" />
+                <div class="project-card__meta-text">
+                  <h3 class="project-card__name">Personal Finance Tracker</h3>
+                  <div class="project-card__meta-sub">
+                    <p class="project-card__category">Web App</p>
+                    <span class="project-card__year">2025 — NOW</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-card__info-right">
+              <p class="project-card__desc">A personal expense management web app — building it for myself first, planning to share it. Focus on simple, fast entry and clear visualization of spending patterns. In active development.</p>
+            </div>
+          </div>
+          <div class="project-card__footer">
+            <p class="project-card__award">Live demo and source coming soon.</p>
+            <div class="project-card__links">
+              <a href="https://github.com/Curious-Ray" target="_blank" rel="noopener" class="project-card__link">GitHub →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- AI-leveraged tools -->
+        <article class="project-card" data-animate>
+          <div class="project-card__tags">
+            <span class="tag">AI</span>
+            <span class="tag">LLM API</span>
+            <span class="tag">Utilities</span>
+            <span class="tag">Coming Soon</span>
+          </div>
+          <div class="project-card__info">
+            <div class="project-card__info-left">
+              <div class="project-card__meta">
+                <img src="apple-touch-icon.png" alt="Deepak Thapa" class="project-card__logo" loading="lazy" />
+                <div class="project-card__meta-text">
+                  <h3 class="project-card__name">AI-leveraged tools</h3>
+                  <div class="project-card__meta-sub">
+                    <p class="project-card__category">AI Utilities</p>
+                    <span class="project-card__year">2024 — NOW</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-card__info-right">
+              <p class="project-card__desc">Small utilities and scripts that use LLM APIs to remove friction from repetitive tasks. Built and used personally first, shared as I refine them. More details coming.</p>
+            </div>
+          </div>
+          <div class="project-card__footer">
+            <p class="project-card__award">Repo links coming as projects ship.</p>
+            <div class="project-card__links">
+              <a href="https://github.com/Curious-Ray" target="_blank" rel="noopener" class="project-card__link">GitHub →</a>
+            </div>
+          </div>
+        </article>
+
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="container">
+      <p class="section__label">// ABOUT</p>
+      <h2 class="section__title">School gave me the theory.<br /><em class="accent">YouTube gave me the playbook.</em></h2>
+
+      <p class="about__bio" data-animate>
+        Computer engineering grad in Kathmandu — class of 2026 at Kathmandu Engineering College. The line that stuck with me from school: proper preparation prevents poor performance. The discipline was useful. The actual building came from somewhere else.<br /><br />
+        I learned to ship by watching — YouTubers, indie builders, people working in public. AI-first development clicked when I saw it working in their hands first. Now I think in problems instead of languages. Spot a workflow that should be smoother → ship a tool that fixes it. Lately that's mostly Chrome extensions: a personal finance tracker, and site-specific add-ons for tools like Freepik that batch the prompt-and-generate parts of image and video workflows.<br /><br />
+        AI didn't replace me — it made me 100× faster, more creative, and way more willing to start things. I'm open to freelance, collaboration, full-time roles, or just building something interesting with someone. Currently leaning freelance and collaboration. If you've got something to ship and want a builder who moves fast, hit me up.
+      </p>
+
+      <div class="traits">
+        <div class="trait-card" data-animate>
+          <span class="trait-card__emoji">📚</span>
+          <h4 class="trait-card__title">Always reading</h4>
+          <p class="trait-card__sub">Tech, history, self-help — all of it</p>
+        </div>
+        <div class="trait-card" data-animate>
+          <span class="trait-card__emoji">✈️</span>
+          <h4 class="trait-card__title">Travel enthusiast</h4>
+          <p class="trait-card__sub">Always somewhere new</p>
+        </div>
+        <div class="trait-card" data-animate>
+          <span class="trait-card__emoji">🐐</span>
+          <h4 class="trait-card__title">Killer mentality</h4>
+          <p class="trait-card__sub">Michael Jordan mindset</p>
+        </div>
+        <div class="trait-card" data-animate>
+          <span class="trait-card__emoji">🎓</span>
+          <h4 class="trait-card__title">Engineering grad</h4>
+          <p class="trait-card__sub">Computer engineering, class of 2026</p>
+        </div>
+        <div class="trait-card" data-animate>
+          <span class="trait-card__emoji">⛰️</span>
+          <h4 class="trait-card__title">Mountain person</h4>
+          <p class="trait-card__sub">Cloudy peaks, sunrise to sunset</p>
+        </div>
+        <div class="trait-card" data-animate>
+          <span class="trait-card__emoji">💻</span>
+          <h4 class="trait-card__title">MacBook native</h4>
+          <p class="trait-card__sub">Claude Code + new tech, building daily</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEYOND THE DAY JOB -->
+  <section class="section" id="beyond">
+    <div class="container">
+      <p class="section__label">// BEYOND THE DAY JOB</p>
+      <h2 class="section__title">Teaching, making, <em class="accent">sharing</em></h2>
+
+      <div class="content-grid">
+        <div class="content-card" data-animate>
+          <span class="content-card__tag">CHROME EXTENSION</span>
+          <h4 class="content-card__title">Coming soon</h4>
+          <p class="content-card__desc">Site-specific automation extension — in active development.</p>
+          <div class="content-card__footer">
+            <a href="https://www.linkedin.com/in/deepak-thapa-5464b6304/" target="_blank" rel="noopener" class="content-card__link">LinkedIn →</a>
+            <img src="apple-touch-icon.png" alt="Deepak Thapa" class="content-card__logo" loading="lazy" />
+          </div>
+        </div>
+        <div class="content-card" data-animate>
+          <span class="content-card__tag">WEB APP</span>
+          <h4 class="content-card__title">Coming soon</h4>
+          <p class="content-card__desc">Personal finance tracker — in active development.</p>
+          <div class="content-card__footer">
+            <a href="https://www.linkedin.com/in/deepak-thapa-5464b6304/" target="_blank" rel="noopener" class="content-card__link">LinkedIn →</a>
+            <img src="apple-touch-icon.png" alt="Deepak Thapa" class="content-card__logo" loading="lazy" />
+          </div>
+        </div>
+        <div class="content-card" data-animate>
+          <span class="content-card__tag">AI TOOL</span>
+          <h4 class="content-card__title">Coming soon</h4>
+          <p class="content-card__desc">Experimenting with AI workflows — more details soon.</p>
+          <div class="content-card__footer">
+            <a href="https://www.linkedin.com/in/deepak-thapa-5464b6304/" target="_blank" rel="noopener" class="content-card__link">LinkedIn →</a>
+            <img src="apple-touch-icon.png" alt="Deepak Thapa" class="content-card__logo" loading="lazy" />
+          </div>
+        </div>
+        <div class="content-card" data-animate>
+          <span class="content-card__tag">OPEN SOURCE</span>
+          <h4 class="content-card__title">Coming soon</h4>
+          <p class="content-card__desc">Open-source contributions and small utilities — in progress.</p>
+          <div class="content-card__footer">
+            <a href="https://www.linkedin.com/in/deepak-thapa-5464b6304/" target="_blank" rel="noopener" class="content-card__link">LinkedIn →</a>
+            <img src="apple-touch-icon.png" alt="Deepak Thapa" class="content-card__logo" loading="lazy" />
+          </div>
+        </div>
+        <div class="content-card" data-animate>
+          <span class="content-card__tag">GUIDE</span>
+          <h4 class="content-card__title">Coming soon</h4>
+          <p class="content-card__desc">Notes and learnings from what I'm building — coming soon.</p>
+          <div class="content-card__footer">
+            <a href="https://www.linkedin.com/in/deepak-thapa-5464b6304/" target="_blank" rel="noopener" class="content-card__link">LinkedIn →</a>
+            <img src="apple-touch-icon.png" alt="Deepak Thapa" class="content-card__logo" loading="lazy" />
+          </div>
+        </div>
+        <div class="content-card" data-animate>
+          <span class="content-card__tag">WRITING</span>
+          <h4 class="content-card__title">Coming soon</h4>
+          <p class="content-card__desc">Long-form writing on building, AI, and shipping — coming soon.</p>
+          <div class="content-card__footer">
+            <a href="https://www.linkedin.com/in/deepak-thapa-5464b6304/" target="_blank" rel="noopener" class="content-card__link">LinkedIn →</a>
+            <img src="apple-touch-icon.png" alt="Deepak Thapa" class="content-card__logo" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINISHED COURSES -->
+  <section class="section" id="courses">
+    <div class="container">
+      <p class="section__label">// Finished courses</p>
+      <h2 class="section__title">Still learning. <em class="accent">On the job.</em></h2>
+
+      <div class="courses-list" data-animate>
+        <div class="course-row">
+          <img src="assets/images/mimo-logo.png" alt="Mimo" class="course-row__logo" loading="lazy" />
+          <div class="course-row__info">
+            <span class="course-row__title">Python Development</span>
+            <span class="course-row__meta">Mimo · Jun 2025</span>
+          </div>
+          <a href="https://www.virtualbadge.io/certificate-validator?credential=035a4179-c67e-4155-bcba-557410c96595" target="_blank" rel="noopener" class="course-row__link">Certificate →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section" id="experience">
+    <div class="container">
+      <div>
+        <p class="section__label">// WHERE I'VE BEEN</p>
+        <h2 class="section__title">The work so far.<br /><em class="accent">Just getting started.</em></h2>
+      </div>
+
+      <div class="exp-list" style="margin-top: 64px;">
+
+        <div class="exp-row" data-accordion>
+          <div class="exp-row__header">
+            <img src="assets/images/upwork-logo.png" alt="Upwork" class="exp-row__logo" loading="lazy" />
+            <span class="exp-row__title">Professional Video Editor · Upwork</span>
+            <span class="exp-row__year">2025</span>
+            <svg class="exp-row__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="exp-row__body">
+            <div class="exp-row__body-inner">
+              <p class="exp-row__period">June 2025 — Present · Part-time · Remote · Kathmandu</p>
+              <p class="exp-row__desc">Active freelancer on Upwork delivering video editing for clients worldwide. Working primarily in Adobe Premiere Pro, Photoshop, and After Effects. <a href="https://www.upwork.com/freelancers/~01086663a71c7f07a3" target="_blank" rel="noopener" class="exp-row__inline-link">Upwork profile →</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-row" data-accordion>
+          <div class="exp-row__header">
+            <img src="assets/images/farmkind-logo.png" alt="FarmKind" class="exp-row__logo" loading="lazy" />
+            <span class="exp-row__title">Volunteer Video Editor · FarmKind</span>
+            <span class="exp-row__year">2024</span>
+            <svg class="exp-row__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="exp-row__body">
+            <div class="exp-row__body-inner">
+              <p class="exp-row__period">August 2024 — November 2024 · Remote · Texas, US</p>
+              <p class="exp-row__desc">Volunteered with FarmKind, a nonprofit (a project of Charity Entrepreneurship) that helps people route donations to high-impact organizations working to reduce factory farming. Edited video content supporting the team's outreach and donor education.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-row" data-accordion>
+          <div class="exp-row__header">
+            <img src="apple-touch-icon.png" alt="Deepak Thapa" class="exp-row__logo" loading="lazy" />
+            <span class="exp-row__title">Independent Builder · Self-employed</span>
+            <span class="exp-row__year">2022</span>
+            <svg class="exp-row__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="exp-row__body">
+            <div class="exp-row__body-inner">
+              <p class="exp-row__period">2022 — Present · Kathmandu</p>
+              <p class="exp-row__desc">Started building alongside my computer engineering studies in 2022 — Chrome extensions, websites, and AI-leveraged tools. Recent projects include a personal finance tracker and site-specific automation extensions for image and video generators. Claude Code is my main development environment. Open to collaboration and full-time roles.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="section" id="education">
+    <div class="container">
+      <p class="section__label">// Fundamental EDUCATION</p>
+      <h2 class="section__title">The foundation.</h2>
+
+      <div class="edu-list" data-animate>
+        <div class="edu-row">
+          <div class="edu-row__icon">🏛️</div>
+          <div class="edu-row__info">
+            <span class="edu-row__title">Kathmandu Engineering College, Tribhuvan University</span>
+            <span class="edu-row__meta">Bachelor of Computer Engineering · 2022 – Present</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section contact" id="contact">
+    <div class="container contact__inner">
+      <p class="section__label">// SAY HELLO</p>
+      <div class="contact__image">
+        <video src="assets/video/downcats.mp4" autoplay loop muted playsinline webkit-playsinline preload="metadata" aria-label="Contact section visual"></video>
+      </div>
+      <h2 class="section__title contact__title">I'm always up for<br /><em class="accent">a good conversation.</em></h2>
+      <p class="contact__sub" data-animate>Focused on what I'm building at Storyby. But if you've got something worth talking about — design, AI, products — I'm ready.</p>
+      <div class="contact__buttons">
+        <a href="mailto:thapadeepak726@gmail.com" class="btn btn--primary" data-animate>Let's Talk →</a>
+        <a href="https://www.linkedin.com/in/deepak-thapa-5464b6304/" target="_blank" rel="noopener" class="btn btn--action" data-animate>LinkedIn →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+
+        <!-- Left: copyright -->
+        <p class="footer__copy">© 2026 Deepak Thapa</p>
+
+        <!-- Center: nav links -->
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="https://www.linkedin.com/in/deepak-thapa-5464b6304/" target="_blank" rel="noopener" class="footer__nav-link">LinkedIn</a>
+          <a href="https://github.com/Curious-Ray" target="_blank" rel="noopener" class="footer__nav-link">GitHub</a>
+          <a href="mailto:thapadeepak726@gmail.com" class="footer__nav-link">Contact →</a>
+        </nav>
+
+        <!-- Right: AI hint -->
+        <a href="ai.html" class="footer__ai-link">Hey AI →</a>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- CHAT -->
+  <div class="lawn-chat" data-chat-root>
+    <button
+      class="lawn-chat__launcher"
+      type="button"
+      aria-expanded="false"
+      aria-controls="lawn-chat-panel"
+      aria-label="Open chat about Deepak"
+      data-chat-launcher
+    >
+      <span class="lawn-chat__launcher-dot" aria-hidden="true"></span>
+      <span class="lawn-chat__launcher-text">23 Hotline</span>
+    </button>
+
+    <section
+      class="lawn-chat__panel"
+      id="lawn-chat-panel"
+      aria-label="Chat about Deepak"
+      aria-hidden="true"
+      hidden
+      data-chat-panel
+    >
+      <div class="lawn-chat__panel-header">
+        <div class="lawn-chat__panel-info">
+          <p class="lawn-chat__eyebrow">// 23 HOTLINE</p>
+          <h3 class="lawn-chat__title">Ask about Deepak.</h3>
+
+        </div>
+        <button class="lawn-chat__close" type="button" aria-label="Close chat" data-chat-close>×</button>
+      </div>
+
+      <div class="lawn-chat__messages" data-chat-messages aria-live="polite" data-lenis-prevent></div>
+
+      <div class="lawn-chat__prompts" data-chat-prompts>
+        <button class="lawn-chat__prompt" type="button" data-chat-prompt="What does Deepak build?">What he builds</button>
+        <button class="lawn-chat__prompt" type="button" data-chat-prompt="What is his tech stack?">Tech stack</button>
+        <button class="lawn-chat__prompt" type="button" data-chat-prompt="Is Deepak available for freelance or full-time work?">Available to hire?</button>
+      </div>
+
+      <form class="lawn-chat__form" data-chat-form>
+        <label class="lawn-chat__input-wrap">
+          <span class="sr-only">Ask about Deepak</span>
+          <textarea
+            class="lawn-chat__input"
+            name="message"
+            rows="1"
+            maxlength="500"
+            placeholder="Ask about Deepak..."
+            data-chat-input
+          ></textarea>
+        </label>
+        <button class="lawn-chat__send" type="submit" data-chat-send>Send</button>
+      </form>
+    </section>
+  </div>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Deepak Thapa",
+    "jobTitle": "Software Developer",
+    "sameAs": [
+      "https://www.linkedin.com/in/deepak-thapa-5464b6304/",
+      "https://github.com/Curious-Ray"
+    ]
+  }
+  </script>
+
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Lenis smooth scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+  <script src="main.js"></script>
+</body>
+</html>
