@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Welcome — Deepak's Chrome extensions</title>
+  <meta name="description" content="Thanks for installing. A hub for all the Chrome extensions I'm building — Magnific Automation and more on the way." />
+
+  <meta property="og:title" content="Deepak's Chrome extensions" />
+  <meta property="og:description" content="A hub for all the Chrome extensions I'm building." />
+  <meta property="og:image" content="../apple-touch-icon.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Deepak's Chrome extensions" />
+  <meta name="twitter:description" content="A hub for all the Chrome extensions I'm building." />
+  <meta name="twitter:image" content="../apple-touch-icon.png" />
+  <meta name="theme-color" content="#000000" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Geist+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    /* Top bar */
+    .eh-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.85);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .eh-nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 16px var(--container-px);
+    }
+    .eh-nav__brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+    }
+    .eh-nav__avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--bg-card);
+    }
+    .eh-nav__links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+    .eh-nav__links a {
+      color: var(--text-secondary);
+      transition: color var(--transition);
+    }
+    .eh-nav__links a:hover { color: var(--text-primary); }
+
+    /* Hero */
+    .eh-hero {
+      padding: 160px 0 80px;
+      text-align: center;
+    }
+    .eh-hero__wave {
+      display: inline-block;
+      font-size: 48px;
+      margin-bottom: 16px;
+      animation: wave 2.4s ease-in-out infinite;
+      transform-origin: 70% 70%;
+    }
+    @keyframes wave {
+      0%, 60%, 100% { transform: rotate(0deg); }
+      10% { transform: rotate(14deg); }
+      20% { transform: rotate(-8deg); }
+      30% { transform: rotate(14deg); }
+      40% { transform: rotate(-4deg); }
+      50% { transform: rotate(10deg); }
+    }
+    .eh-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .eh-hero__subtitle {
+      max-width: 580px;
+      margin: 0 auto 32px;
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .eh-hero__meta {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Generic section */
+    .eh-section { padding: 80px 0; }
+    .eh-section__label {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+    .eh-section__title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.4vw, 42px);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 40px;
+    }
+
+    /* Product grid */
+    .eh-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 760px) { .eh-grid { grid-template-columns: 1fr; } }
+
+    .eh-product {
+      padding: 28px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      transition: transform var(--transition), border-color var(--transition);
+    }
+    .eh-product:hover { transform: translateY(-2px); border-color: var(--border-tag); }
+    .eh-product--soon { opacity: 0.55; }
+    .eh-product--soon:hover { transform: none; border-color: var(--border); }
+    .eh-product__head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .eh-product__banner {
+      display: block;
+      width: calc(100% + 56px);
+      margin: -28px -28px 4px -28px;
+      border-radius: var(--radius-card) var(--radius-card) 0 0;
+      height: auto;
+    }
+    .eh-product__icon {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #000;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .eh-product--soon .eh-product__icon {
+      background: var(--bg-tag);
+      color: var(--accent);
+    }
+    .eh-product__name {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 2px;
+    }
+    .eh-product__platform {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .eh-product__desc {
+      color: var(--text-card);
+      font-size: 15px;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+    .eh-product__actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* FAQ */
+    .eh-faq__item {
+      border-bottom: 1px solid var(--border);
+      padding: 22px 0;
+    }
+    .eh-faq__item:first-child { border-top: 1px solid var(--border); }
+    .eh-faq__q {
+      font-family: var(--font-display);
+      font-size: 19px;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .eh-faq__q::-webkit-details-marker { display: none; }
+    .eh-faq__q::after {
+      content: "+";
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 22px;
+    }
+    .eh-faq__item[open] .eh-faq__q::after { content: "−"; }
+    .eh-faq__a {
+      margin-top: 10px;
+      color: var(--text-card);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* Community */
+    .eh-community {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 760px) { .eh-community { grid-template-columns: 1fr; } }
+
+    .eh-community__card {
+      padding: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      text-align: center;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .eh-community__card:hover {
+      border-color: var(--border-tag);
+      transform: translateY(-2px);
+    }
+    .eh-community__icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    .eh-community__label {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Footer */
+    .eh-footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+    .eh-footer a {
+      color: var(--text-secondary);
+      transition: color var(--transition);
+    }
+    .eh-footer a:hover { color: var(--accent); }
+
+    @media (max-width: 720px) {
+      :root { --container-px: 24px; }
+      .eh-nav__links a:not(.btn) { display: none; }
+      .eh-hero { padding: 130px 0 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="eh-nav">
+    <div class="eh-nav__inner">
+      <a href="../" class="eh-nav__brand">
+        <img src="../apple-touch-icon.png" alt="" class="eh-nav__avatar" />
+        DEEPAK&nbsp;THAPA
+      </a>
+      <div class="eh-nav__links">
+        <a href="#products">Extensions</a>
+        <a href="#help">Help</a>
+        <a href="mailto:thapadeepak726@gmail.com" class="btn btn--primary btn--sm">Support →</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="eh-hero">
+    <div class="container">
+      <span class="eh-hero__wave" aria-hidden="true">👋</span>
+      <h1 class="eh-hero__title">Thanks for installing.<br /><em class="accent">Welcome to the toolbox.</em></h1>
+      <p class="eh-hero__subtitle">
+        I build small, focused Chrome extensions that take the tedium out of AI workflows. You can find what you just installed below — and the others I'm shipping next.
+      </p>
+      <p class="eh-hero__meta">Built by <a href="../" style="color:var(--accent);">Deepak Thapa</a> · Kathmandu, Nepal</p>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="eh-section" id="products">
+    <div class="container">
+      <p class="eh-section__label">// CURRENT &amp; UPCOMING</p>
+      <h2 class="eh-section__title">My Chrome extensions</h2>
+
+      <div class="eh-grid">
+        <!-- Live: Magnific Automation -->
+        <article class="eh-product">
+          <img src="assets/magnific-promo.png" alt="Magnific Automation — Bulk generation for Magnific. Automate Video & Image Generation." class="eh-product__banner" loading="lazy" />
+          <div class="eh-product__head">
+            <div>
+              <h3 class="eh-product__name">Magnific Automation</h3>
+              <p class="eh-product__platform">for magnific.ai · v1.0.3</p>
+            </div>
+          </div>
+          <p class="eh-product__desc">
+            Auto-generate and download AI images and videos in bulk on Magnific. Paste your prompts, hit start, walk away — your whole queue runs in your own session.
+          </p>
+          <div class="eh-product__actions">
+            <a href="https://chromewebstore.google.com/detail/magnific-automation-bulk/fpclkjidhbhdoeeokmjdlkcncdcmgeik" target="_blank" rel="noopener" class="btn btn--primary btn--sm">Install →</a>
+            <a href="../magnific-automation/" class="btn btn--ghost btn--sm">Learn more</a>
+          </div>
+        </article>
+
+        <!-- Coming soon placeholder #1 -->
+        <article class="eh-product eh-product--soon">
+          <div class="eh-product__head">
+            <div class="eh-product__icon">?</div>
+            <div>
+              <h3 class="eh-product__name">Next one cooking.</h3>
+              <p class="eh-product__platform">Coming soon</p>
+            </div>
+          </div>
+          <p class="eh-product__desc">
+            Another automation tool in the same vein — taking the click-wait-repeat out of a tool I use every day. Drops here first.
+          </p>
+          <div class="eh-product__actions">
+            <span class="btn btn--ghost btn--sm" aria-disabled="true">In development</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- HELP / FAQ -->
+  <section class="eh-section" id="help">
+    <div class="container">
+      <p class="eh-section__label">// FIRST-TIME HELP</p>
+      <h2 class="eh-section__title">Just installed — what now?</h2>
+
+      <div class="eh-faq">
+        <details class="eh-faq__item" open>
+          <summary class="eh-faq__q">Pin the extension to your toolbar</summary>
+          <p class="eh-faq__a">Click the puzzle icon in Chrome's top-right toolbar, find the extension in the list, and click the pin icon next to it. The extension's icon will then sit permanently in your toolbar — one click away whenever you need it.</p>
+        </details>
+
+        <details class="eh-faq__item">
+          <summary class="eh-faq__q">How do I use it?</summary>
+          <p class="eh-faq__a">Open the platform the extension is built for (e.g. magnific.ai for Magnific Automation), then click the extension's icon in your toolbar. A side panel opens with the queue controls. Paste prompts, configure settings, press start.</p>
+        </details>
+
+        <details class="eh-faq__item">
+          <summary class="eh-faq__q">Why isn't it doing anything?</summary>
+          <p class="eh-faq__a">A few common causes: (1) you're not on the platform page yet — open the generator before clicking the extension; (2) you're not logged in — these extensions use your own account, so log in first; (3) the platform's UI changed since the last update — email me and I'll patch it within a day.</p>
+        </details>
+
+        <details class="eh-faq__item">
+          <summary class="eh-faq__q">Are my credentials safe?</summary>
+          <p class="eh-faq__a">The extensions never see, store, or transmit your platform passwords. They operate inside your already-logged-in browser session — the same way any user click on the page would. No login info is sent anywhere, ever.</p>
+        </details>
+
+        <details class="eh-faq__item">
+          <summary class="eh-faq__q">Found a bug or have a feature request?</summary>
+          <p class="eh-faq__a">Email <a href="mailto:thapadeepak726@gmail.com" style="color:var(--accent);">thapadeepak726@gmail.com</a>. I read every message and most replies go out within 24 hours on weekdays. Bug reports get priority — I patch and ship fast.</p>
+        </details>
+
+        <details class="eh-faq__item">
+          <summary class="eh-faq__q">When do you charge for these?</summary>
+          <p class="eh-faq__a">Right now everything is free for early users. Once a tool has enough users that I'm confident it's battle-tested, the price flips to <strong>$15 lifetime</strong> for <em>new</em> customers. If you installed during the free launch, you're grandfathered in at free forever.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMUNITY -->
+  <section class="eh-section" id="community">
+    <div class="container">
+      <p class="eh-section__label">// STAY IN THE LOOP</p>
+      <h2 class="eh-section__title">Follow what's next</h2>
+
+      <div class="eh-community">
+        <a href="https://github.com/Curious-Ray" target="_blank" rel="noopener" class="eh-community__card">
+          <div class="eh-community__icon">⌘</div>
+          <p class="eh-community__label">GitHub — code &amp; releases</p>
+        </a>
+        <a href="https://www.linkedin.com/in/deepak-thapa-5464b6304/" target="_blank" rel="noopener" class="eh-community__card">
+          <div class="eh-community__icon">in</div>
+          <p class="eh-community__label">LinkedIn — updates</p>
+        </a>
+        <a href="mailto:thapadeepak726@gmail.com" class="eh-community__card">
+          <div class="eh-community__icon">✉</div>
+          <p class="eh-community__label">Email — direct support</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="eh-footer">
+    <div class="container">
+      <p>© <span id="year"></span> Deepak Thapa · Independent indie developer · Kathmandu, Nepal</p>
+      <p style="margin-top:8px;">
+        <a href="../">deepakthapa.dev</a> · <a href="mailto:thapadeepak726@gmail.com">thapadeepak726@gmail.com</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
